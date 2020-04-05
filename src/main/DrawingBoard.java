@@ -29,20 +29,29 @@ public class DrawingBoard extends JPanel {
 	}
 	
 	public void groupAll() {
-		for(int i=0; i < gObjects.size();i++){
-			gObjects.add(target);
+		CompositeGObject group_all = new CompositeGObject();
+		for(GObject gObject: gObjects){
+			if(gObject instanceof CompositeGObject){
+				group_all = (CompositeGObject) gObject;
+			}
+			else{
+				gObject.deselected();
+				group_all.add(gObject);
+			}
 		}
+
+		group_all.recalculateRegion();
+		gObjects.clear();
+		gObjects.add(group_all);
 		repaint();
 	}
 
 	public void deleteSelected() {
 		gObjects.remove(target);
-		repaint();
 	}
 	
 	public void clear() {
 		gObjects.clear();
-		repaint();
 	}
 	
 	@Override

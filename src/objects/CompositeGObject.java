@@ -24,30 +24,46 @@ public class CompositeGObject extends GObject {
 
 	@Override
 	public void move(int dX, int dY) {
-		for(GObject gObject: gObjects){
-			gObject.move(dX,dY);
+		for(GObject gObject: gObjects) {
+			gObject.move(dX, dY);
 		}
 	}
 	
 	public void recalculateRegion() {
+		int re_width = 0, re_height = 0;
+		int re_x = gObjects.get(0).x, re_y = gObjects.get(0).y;
+
 		for(GObject gObject: gObjects){
-			if(gObject.x<=width){
-				gObject.x=width;
+			if(re_width <= gObject.width + gObject.x){
+				  re_width = gObject.width + gObject.x;
 			}
-			if(gObject.y<=height){
-				gObject.y=height;
+			if(re_height <= gObject.height + gObject.y){
+				re_height = gObject.height + gObject.y;
+			}
+			if(re_x >= gObject.x){
+				re_x = gObject.x;
+			}
+			if(re_y >= gObject.y){
+				re_y = gObject.y;
 			}
 		}
+
+		super.x = re_x;
+		super.y = re_y;
+		super.width = re_width - re_x;
+		super.height = re_height - re_y;
 	}
 
 	@Override
 	public void paintObject(Graphics g) {
-		g.create();
+		for(GObject gObject: gObjects){
+			gObject.paintObject(g);
+		}
 	}
 
 	@Override
 	public void paintLabel(Graphics g) {
-		g.drawString("Group",x,y+width+10);
+		g.drawString("Group", x, y+height+15);
 	}
 	
 }
