@@ -15,30 +15,39 @@ public class CompositeGObject extends GObject {
 	}
 
 	public void add(GObject gObject) {
-		// TODO: Implement this method.
+		gObjects.add(gObject);
 	}
 
 	public void remove(GObject gObject) {
-		// TODO: Implement this method.
+		gObjects.remove(gObject);
 	}
 
 	@Override
 	public void move(int dX, int dY) {
-		// TODO: Implement this method.
+		for(GObject gObject: gObjects){
+			gObject.move(dX,dY);
+		}
 	}
 	
 	public void recalculateRegion() {
-		// TODO: Implement this method.
+		for(GObject gObject: gObjects){
+			if(gObject.x<=width){
+				gObject.x=width;
+			}
+			if(gObject.y<=height){
+				gObject.y=height;
+			}
+		}
 	}
 
 	@Override
 	public void paintObject(Graphics g) {
-		// TODO: Implement this method.
+		g.create();
 	}
 
 	@Override
 	public void paintLabel(Graphics g) {
-		// TODO: Implement this method.
+		g.drawString("Group",x,y+width+10);
 	}
 	
 }
