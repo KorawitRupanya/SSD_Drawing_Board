@@ -14,12 +14,12 @@ public class Rect extends GObject  {
 
 	@Override
 	public void paintObject(Graphics g) {
-		// TODO: Implement this method.
+
 	}
 	
 	@Override
 	public void paintLabel(Graphics g) {
-		// TODO: Implement this method.
+
 	}
 	
 }
